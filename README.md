@@ -146,7 +146,8 @@ can use the following:
 ```
 
 You can then run neovim using `nix run .# -- <file>`. This can be useful to test
-config changes easily.
+config changes easily. Other options are `nix shell .#` or `nix develop` to enter
+shells where the nvim binary is available.
 
 ### Advanced Usage
 
