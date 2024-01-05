@@ -141,27 +141,24 @@ can use the following:
   description = "A very basic flake";
 
   inputs.nixvim.url = "github:nix-community/nixvim";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs = {
     self,
     nixpkgs,
-    nixvim,
-    flake-utils,
+    nixvim 
   }: let
+    system = "x86_64-linux";
     config = {
       colorschemes.gruvbox.enable = true;
     };
-  in
-    flake-utils.lib.eachDefaultSystem (system: let
-	  nixvim' = nixvim.legacyPackages."${system}";
-      nvim = nixvim'.makeNixvim config;
-    in {
-      packages = {
-        inherit nvim;
-        default = nvim;
-      };
-    });
+    nixvim' = nixvim.legacyPackages."${system}";
+    nvim = nixvim'.makeNixvim config;
+  in {
+    packages."${system}" = {
+      inherit nvim;
+      default = nvim;
+    };
+  };
 }
 ```
 </details>
